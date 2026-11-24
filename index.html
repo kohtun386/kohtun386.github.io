@@ -1,0 +1,475 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Ko Htun — Operations &amp; Product Dossier</title>
+<style>
+  :root {
+    --bg: #F4EFE6;
+    --bg-raise: #FBF8F1;
+    --ink: #211D18;
+    --muted: #6B635A;
+    --line: rgba(33, 29, 24, 0.16);
+    --line-soft: rgba(33, 29, 24, 0.08);
+    --brass: #9A6E2A;
+    --copper: #A4552E;
+    --teal: #1F6E63;
+    --warn: #B27A1E;
+    --pr: var(--brass);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151B;
+      --bg-raise: #1A1F28;
+      --ink: #E8E4DA;
+      --muted: #8B8F97;
+      --line: rgba(232, 228, 218, 0.16);
+      --line-soft: rgba(232, 228, 218, 0.07);
+      --brass: #D8A45C;
+      --copper: #C9825A;
+      --teal: #63B5A6;
+      --warn: #E3B14F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151B;
+    --bg-raise: #1A1F28;
+    --ink: #E8E4DA;
+    --muted: #8B8F97;
+    --line: rgba(232, 228, 218, 0.16);
+    --line-soft: rgba(232, 228, 218, 0.07);
+    --brass: #D8A45C;
+    --copper: #C9825A;
+    --teal: #63B5A6;
+    --warn: #E3B14F;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: color-mix(in srgb, var(--pr) 28%, transparent); }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 64px 24px 88px; }
+
+  .mono, .stamp, .stat-n, .meta, .eyebrow, .roles, .cover-tag, .tagline, .foot { font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, "Liberation Mono", monospace; font-variant-numeric: tabular-nums; }
+
+  /* ---------- cover ---------- */
+  .cover {
+    border: 1px solid var(--line);
+    background: var(--bg-raise);
+    border-radius: 10px;
+    padding: 28px 28px 30px;
+    animation: rise .6s cubic-bezier(.2,.7,.3,1) both;
+  }
+  .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .eyebrow {
+    font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--pr); font-weight: 600;
+  }
+  .cover-tag { font-size: .72rem; letter-spacing: .06em; color: var(--muted); }
+  .rule { height: 1px; background: var(--line-soft); margin: 20px 0 22px; }
+
+  .meta { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px 24px; margin-bottom: 26px; }
+  .meta div { display: flex; gap: 10px; min-width: 0; }
+  .meta dt { color: var(--muted); flex: 0 0 auto; width: 86px; font-size: .74rem; letter-spacing: .06em; }
+  .meta dd { margin: 0; font-size: .78rem; color: var(--ink); overflow-wrap: anywhere; }
+
+  .title {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: clamp(2.05rem, 6.5vw, 3.1rem);
+    line-height: 1.04;
+    font-weight: 700;
+    letter-spacing: -.015em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  .cursor { display: inline-block; width: .62em; height: .82em; background: var(--teal); margin-left: .12em; vertical-align: -0.06em; animation: blink 1.1s steps(2, start) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .sub { font-size: 1.06rem; line-height: 1.6; color: var(--muted); margin: 0 0 24px; max-width: 60ch; }
+
+  .tagline {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: .76rem; letter-spacing: .04em; color: var(--muted);
+    border-top: 1px dashed var(--line); padding-top: 18px;
+  }
+  .tagline b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- invariants spine ---------- */
+  .spine {
+    margin: 40px 0 8px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    padding: 2px 0;
+  }
+  .stamp {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); white-space: nowrap;
+  }
+  .stamp::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--stamp-c, var(--teal)); flex: 0 0 auto;
+  }
+
+  /* ---------- records ---------- */
+  .record { margin-top: 64px; }
+  .record-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .record-name {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: clamp(1.3rem, 3.4vw, 1.7rem); font-weight: 700; letter-spacing: -.01em; margin: 0;
+  }
+  .record-index { color: var(--pr); }
+  .roles { font-size: .74rem; letter-spacing: .05em; color: var(--muted); }
+  .one-liner { font-size: 1.02rem; color: var(--ink); max-width: 62ch; margin: 12px 0 20px; }
+  .one-liner code, .caveats code { font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace; font-size: .9em; color: var(--pr); background: color-mix(in srgb, var(--pr) 10%, transparent); padding: .05em .32em; border-radius: 4px; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 1px; background: var(--line-soft);
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    margin: 26px 0 28px;
+  }
+  .stat { background: var(--bg-raise); padding: 16px 18px 14px; }
+  .stat-n { font-size: 1.75rem; font-weight: 700; letter-spacing: -.01em; color: var(--pr); line-height: 1.05; }
+  .stat-l { margin-top: 5px; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+  .facts { list-style: none; margin: 0 0 22px; padding: 0; border-top: 1px solid var(--line-soft); }
+  .fact { display: grid; grid-template-columns: 168px 1fr; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); }
+  .fact .stamp { align-self: start; margin-top: 1px; }
+  .fact p { margin: 0; font-size: .95rem; color: var(--ink); max-width: 60ch; }
+  .fact code { font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace; font-size: .88em; color: var(--pr); background: color-mix(in srgb, var(--pr) 10%, transparent); padding: .05em .32em; border-radius: 4px; }
+
+  .caveats {
+    border: 1px solid color-mix(in srgb, var(--warn) 45%, transparent);
+    border-left-width: 3px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--warn) 6%, var(--bg-raise));
+    padding: 16px 20px 14px;
+  }
+  .caveats h4 { margin: 0 0 10px; font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); }
+  .caveats ul { margin: 0; padding-left: 18px; }
+  .caveats li { font-size: .9rem; color: var(--muted); margin: 6px 0; }
+
+  .attrib {
+    margin-top: 18px; font-size: .88rem; color: var(--ink);
+    border: 1px dashed var(--line); border-radius: 8px; padding: 14px 18px;
+  }
+  .attrib code { font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace; font-size: .9em; color: var(--teal); }
+  .repo-link { margin-top: 10px; }
+  .repo-link a {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .78rem; letter-spacing: .02em; color: var(--pr);
+    text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--pr) 45%, transparent);
+  }
+  .repo-link a:hover { border-bottom-color: currentColor; }
+  .repo-link a::after { content: " ↗"; }
+  .repo-private {
+    margin-top: 10px;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .78rem; letter-spacing: .02em; color: var(--muted);
+  }
+  .foot-link { color: var(--teal); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--teal) 45%, transparent); }
+  .foot-link:hover { border-bottom-color: currentColor; }
+
+  /* ---------- grouped entries (record 03) ---------- */
+  .group { margin-top: 30px; }
+  .group-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    margin: 0 0 14px;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--pr);
+  }
+  .group-head span { font-size: .7rem; letter-spacing: .04em; text-transform: none; color: var(--muted); }
+  .entries { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+  .entry {
+    display: flex; flex-direction: column; gap: 8px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg-raise); padding: 16px 18px 15px;
+  }
+  .entry .kind {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--pr);
+  }
+  .entry h3 {
+    margin: 0;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: 1rem; font-weight: 700; letter-spacing: -.01em;
+  }
+  .entry p { margin: 0; font-size: .88rem; line-height: 1.55; color: var(--muted); }
+  .entry .stack {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .7rem; line-height: 1.5; color: var(--ink);
+  }
+  .entry .role-line { font-size: .82rem; color: var(--ink); border-top: 1px dashed var(--line-soft); padding-top: 8px; }
+  .entry .role-line b {
+    margin-right: 4px;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--pr);
+  }
+  .entry .note { font-size: .74rem; color: var(--muted); }
+  .entry .repo-link { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: auto; padding-top: 2px; }
+  .entry .repo-link a { white-space: nowrap; }
+  .entry .repo-private { margin-top: auto; }
+  .entry .sep { display: none; }
+
+  /* ---------- footer ---------- */
+  .foot {
+    margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--line);
+    font-size: .76rem; letter-spacing: .02em; line-height: 1.7; color: var(--muted);
+  }
+  .foot .row { display: flex; gap: 18px; flex-wrap: wrap; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 36px 16px 64px; }
+    .meta { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .fact { grid-template-columns: 1fr; gap: 8px; }
+    .fact .stamp { align-self: auto; }
+    .cover { padding: 22px 20px 24px; }
+    .entries { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cover { animation: none; }
+    .cursor { animation: none; }
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- cover -->
+  <header class="cover">
+    <div class="cover-top">
+      <span class="eyebrow">Operations &amp; Product Dossier</span>
+      <span class="cover-tag">kohtun386 · workflow architecture &amp; AI-orchestrated builds</span>
+    </div>
+    <div class="rule"></div>
+
+    <dl class="meta">
+      <div><dt>author</dt><dd>Ko Htun (Htun Htun Win)</dd></div>
+      <div><dt>role</dt><dd>Operations &amp; Workflow Architect</dd></div>
+      <div><dt>background</dt><dd>MBA · 10+ yrs Hospitality Ops</dd></div>
+      <div><dt>region</dt><dd>Myanmar · Open to Global Remote</dd></div>
+      <div><dt>delivery</dt><dd>AI-Orchestrated (Claude, Codex, Cursor, Gemini)</dd></div>
+      <div><dt>stack</dt><dd>React · TypeScript · Supabase · Firebase</dd></div>
+    </dl>
+
+    <h1 class="title">Operations first.<span class="cursor" aria-hidden="true"></span><br>Sealed in the database.</h1>
+    <p class="sub">I map how a business actually runs — roles, handoffs, approvals, and exceptions — then ship the system with AI coding agents. The hard rules live in the schema: RLS tenant isolation, RPC-only approvals, immutable records, and an append-only audit trail.</p>
+
+    <div class="tagline">
+      <span><b>Workflow</b> Roles · approvals · exceptions</span>
+      <span><b>Delivery</b> Claude Code · Codex · Cursor · Gemini</span>
+      <span><b>Contact</b> <a class="foot-link" href="https://www.linkedin.com/in/ko-htun-htun-win-146970102/" target="_blank" rel="noopener">LinkedIn</a> · <a class="foot-link" href="mailto:kohtunhtun386@gmail.com">Email</a> · <a class="foot-link" href="https://github.com/kohtun386" target="_blank" rel="noopener">GitHub</a></span>
+    </div>
+  </header>
+
+  <!-- invariants spine -->
+  <div class="spine" aria-label="Shared operating principles">
+    <span class="stamp" style="--stamp-c:var(--teal)">Operations-first design</span>
+    <span class="stamp" style="--stamp-c:var(--teal)">RLS tenant isolation</span>
+    <span class="stamp" style="--stamp-c:var(--teal)">RPC-only approvals</span>
+    <span class="stamp" style="--stamp-c:var(--teal)">Immutable records</span>
+    <span class="stamp" style="--stamp-c:var(--teal)">Append-only audit</span>
+    <span class="stamp" style="--stamp-c:var(--teal)">AI-orchestrated delivery</span>
+  </div>
+
+  <!-- record 01 : ERP -->
+  <section class="record erp" style="--pr:var(--brass)">
+    <div class="record-head">
+      <h2 class="record-name"><span class="record-index">01</span> Factory ERP V4 (Lean-ERP)</h2>
+      <span class="roles">Active · Solo Project (Own Idea) · Private Repo</span>
+    </div>
+    <p class="one-liner">A multi-tenant ERP for Myanmar textile and weaving mills — production, piece-rate payroll, subcontracting, inventory, sales, and financial control in one governed system.</p>
+    <div class="roles">Own idea · Product direction · Workflow architecture · AI-orchestrated delivery</div>
+    <div class="roles" style="margin-top:4px; white-space:normal">React 18 · TypeScript · Vite · MUI 7 · Supabase (PostgreSQL, RLS, RPC) · PWA · EN+MY</div>
+    <div class="repo-private">kohtun386/Lean-ERP (private — walkthrough available on request)</div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n">1,000+</div><div class="stat-l">commits</div></div>
+      <div class="stat"><div class="stat-n">250+</div><div class="stat-l">migrations</div></div>
+      <div class="stat"><div class="stat-n">11</div><div class="stat-l">domain modules</div></div>
+      <div class="stat"><div class="stat-n">75</div><div class="stat-l">test files</div></div>
+    </div>
+
+    <ul class="facts">
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Tenant isolation</span>
+        <p>Every policy gates on <code>factory_id = current_factory_id()</code>, resolved from active membership — and <code>factory_id</code> is immutable across governed tables.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">RPC-only writes</span>
+        <p>Production records carry select-only policies. Clients cannot insert, update, or delete directly; all governed writes flow through approval and logging RPCs.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Immutable records</span>
+        <p>Approved production logs are locked — only payment status may change. <code>audit_logs</code> rejects updates and deletes, so the trail cannot be rewritten.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Payroll states</span>
+        <p>Piece-rate payroll moves through <code>DRAFT → CALCULATED → FINALIZED → PAID</code>. Invalid transitions are rejected by trigger, not by UI convention.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Domain depth</span>
+        <p>Production logging, piece-rate payroll, subcontracting, material allocation, stock movements, purchasing, sales, and financial reporting — not a CRUD demo.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Factory-floor UX</span>
+        <p>Mobile-first screens for shared tablets, with role-based supervisor, operator, and owner flows. English and Burmese interface support.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--brass)">Test surface</span>
+        <p>75 test files across Vitest and Playwright, covering approval paths, state transitions, and core operational workflows.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- record 02 : POS -->
+  <section class="record pos" style="--pr:var(--copper)">
+    <div class="record-head">
+      <h2 class="record-name"><span class="record-index">02</span> CoffeeShop POS (Paused)</h2>
+      <span class="roles">Paused · Private Commercial Build</span>
+    </div>
+    <p class="one-liner">A multi-tenant POS for Myanmar coffee and tea shops — started from the MIT-licensed <code>POS-system</code> base used in Vibe Code Tours, then rebuilt into a private commercial platform. Paused while Factory ERP V4 leads.</p>
+    <div class="roles">React 18 · TypeScript · Vite · Tailwind 3 · Supabase (PostgreSQL, RLS, Edge Functions) · PWA</div>
+    <div class="repo-private">kohtun386/coffeeshop-pos-commercial (private)</div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n">450+</div><div class="stat-l">commits</div></div>
+      <div class="stat"><div class="stat-n">90+</div><div class="stat-l">migrations</div></div>
+      <div class="stat"><div class="stat-n">13</div><div class="stat-l">edge functions</div></div>
+      <div class="stat"><div class="stat-n">9</div><div class="stat-l">payment methods</div></div>
+    </div>
+
+    <ul class="facts">
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Atomic checkout</span>
+        <p><code>checkout_complete</code> recomputes the total <em>server-side</em> — a tampered client amount is ignored — then reserves invoice numbers, deducts stock, and updates customer stats in one transaction.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">9 payment methods</span>
+        <p>KBZPay, WavePay, AYAPay, CBPay, MPU, cash, card, credit, and digital — with split payments and customer credit limits, built for Myanmar payment reality.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Tiered SaaS</span>
+        <p>Free / Growth / Pro limits are enforced server-side: a product cap with row-lock race protection and daily-order limits with <code>SELECT … FOR UPDATE</code>.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Role-aware RLS</span>
+        <p><code>platform_admin</code> never appears in a client policy — it operates only through service-role Edge Functions. Privileged RPCs are revoked from public execution.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Implicit deny</span>
+        <p><code>audit_logs</code> has zero client policies — implicit deny. Only Edge Functions write, capturing request origin for the trail.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Counter-ready PWA</span>
+        <p>Installable on iPad and Android for shared shop counters, with inventory, purchasing, discounts, CSV import/export, and sales reporting.</p>
+      </li>
+      <li class="fact">
+        <span class="stamp" style="--stamp-c:var(--copper)">Tested</span>
+        <p>22 test files and roughly 129 test blocks across Vitest, React Testing Library, and Playwright — including payment, checkout, and permission paths.</p>
+      </li>
+    </ul>
+
+    <div class="caveats">
+      <h4>Status notes</h4>
+      <ul>
+        <li>Development is paused while Factory ERP V4 is the focus. The Supabase backend is also paused, so no live demo is linked here.</li>
+        <li>The public <code>POS-system</code> repo is an older mirror; this private repository is the commercial line.</li>
+      </ul>
+    </div>
+
+    <div class="attrib">
+      <b>Attribution:</b> 12 commits are upstream or one-off; the remaining 445 are the author’s. This is a fork-turned-commercial-rewrite, not a from-scratch project.
+    </div>
+  </section>
+
+  <!-- record 03 : AI prototypes & team projects -->
+  <section class="record ai" style="--pr:var(--teal)">
+    <div class="record-head">
+      <h2 class="record-name"><span class="record-index">03</span> AI Prototypes &amp; Team Projects</h2>
+      <span class="roles">Prototypes · hackathons · team builds</span>
+    </div>
+    <p class="one-liner">Smaller experiments and collaborative builds. Prototypes are labeled as prototypes, and team work states the role explicitly.</p>
+
+    <div class="group">
+      <h3 class="group-head">AI prototypes <span>not production apps</span></h3>
+      <div class="entries">
+        <article class="entry">
+          <span class="kind">Prototype · public repo</span>
+          <h3>AuraFit Coach</h3>
+          <p>A personal AI athletic coach and recovery journal. Athletes log training volume, RPE, sleep, and soreness; Gemini returns a recovery score, coaching feedback, and recovery habits. Includes multi-turn coach chat and an English/Burmese interface.</p>
+          <div class="stack">React 19 · TypeScript · Vite · Tailwind 4 · Express · Gemini · Firebase · Cloud Run</div>
+          <div class="repo-link"><a href="https://github.com/kohtun386/aurafit" target="_blank" rel="noopener">github.com/kohtun386/aurafit</a></div>
+          <div class="note">Built for Google Cloud Gen AI Academy. Prototype, not a hosted product.</div>
+        </article>
+
+        <article class="entry">
+          <span class="kind">Prototype · private repo</span>
+          <h3>Single-Merchant AI Sales MVP</h3>
+          <p>An AI sales and customer-service assistant for a clothing and fabric merchant — product discovery, live variant stock checks, FAQ retrieval, order drafting, payment verification, and human staff handoff.</p>
+          <div class="stack">Next.js 14 · TypeScript · Supabase · pgvector · Gemini · OpenAI · Zod</div>
+          <div class="repo-private">kohtun386/Single-Merchant-AI-Assisted-Sales-MVP (private)</div>
+          <div class="note">28 commits · 11 migrations · 17 test files. Prototype, not a hosted production app.</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3 class="group-head">Team &amp; hackathon <span>shared credit, explicit role</span></h3>
+      <div class="entries">
+        <article class="entry">
+          <span class="kind">AI Builder Cup 2026 · team</span>
+          <h3>HR Chronicle AI</h3>
+          <p>An employee milestone and recognition platform for distributed teams — birthdays and anniversaries, AI-personalized multilingual greetings, roster OCR, gift budgeting, and an HR copilot.</p>
+          <div class="stack">React 19 · TypeScript · Firebase · Gemini · Cloud Functions</div>
+          <div class="role-line"><b>Role</b> Team Member / Contributor — HR Copilot function calling, local Firebase emulator setup.</div>
+          <div class="repo-link"><a href="https://myanmardev.web.app" target="_blank" rel="noopener">myanmardev.web.app</a> <span class="sep">·</span> <a href="https://github.com/vibecode-ting/hr_chronicle_ai" target="_blank" rel="noopener">vibecode-ting/hr_chronicle_ai</a></div>
+          <div class="note">Team: Htet Aung Hlaing (lead architect) · Myo Set Paing (UI/UX).</div>
+        </article>
+
+        <article class="entry">
+          <span class="kind">Vibe Code Tours · Team-07</span>
+          <h3>ARGUS</h3>
+          <p>A decentralized security framework for detecting Shadow AI across enterprise endpoints. Linux, macOS, and Windows agents report to a central backend and dashboard.</p>
+          <div class="stack">Python agents · FastAPI · SQLite · HTML/JS dashboard · API-key auth</div>
+          <div class="role-line"><b>Role</b> Team Member / Team Lead.</div>
+          <div class="repo-link"><a href="https://github.com/kohtun386/ARGUS" target="_blank" rel="noopener">github.com/kohtun386/ARGUS</a></div>
+          <div class="note">Public fork of the Team-07 project repository.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="foot">
+    <div class="row">
+      <span>Every claim above was verified against the repositories in November 2026 — git history, migrations, configs, and test suites.</span>
+      <span>Prototypes are labeled as prototypes; team roles are stated explicitly.</span>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <span>Record 01 · brass</span>
+      <span>Record 02 · copper</span>
+      <span>Record 03 · teal</span>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <span><a class="foot-link" href="https://www.linkedin.com/in/ko-htun-htun-win-146970102/" target="_blank" rel="noopener">LinkedIn</a></span>
+      <span><a class="foot-link" href="mailto:kohtunhtun386@gmail.com">kohtunhtun386@gmail.com</a></span>
+      <span><a class="foot-link" href="https://github.com/kohtun386" target="_blank" rel="noopener">github.com/kohtun386</a></span>
+    </div>
+  </footer>
+
+</div>
